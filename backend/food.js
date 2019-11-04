@@ -25,7 +25,7 @@ app.get("/hello", (req, res) => {
 //GET returning food by description
 app.get("/api", async (req, res) => {
 	try {
-		const template = "SELECT description,kcal,protein_g,lipid_total_g,carbohydrate_g FROM entries WHERE description ilike $1 LIMIT 25";
+		const template = "SELECT description,kcal,protein_g,lipid_total_g,carbohydrate_g,fa_sat_g,fa_mono_g,fa_poly_g FROM entries WHERE description ilike $1 LIMIT 25";
 		const response = await pool.query(template, [`%${req.query.q}%`]);
 		res.json(response);
 		} catch (err) {
