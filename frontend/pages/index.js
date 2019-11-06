@@ -51,7 +51,7 @@ class Home extends React.Component {
                           <td>{item.description}</td>
                           <td>{item.kcal}</td>
                           <td>{item.protein_g}</td>
-                          <td>{item.fa_sat_g + item.fa_mono_g + item.fa_poly_g}</td>
+                          <td>{(item.fa_sat_g + item.fa_mono_g + item.fa_poly_g).toFixed(2)}</td>
                           <td>{item.carbohydrate_g}</td>
                         </tr>
                         )}
