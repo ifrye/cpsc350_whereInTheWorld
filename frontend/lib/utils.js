@@ -1,8 +1,8 @@
 require ("isomorphic-fetch");
 import BPromise from "bluebird";
 
-function getNutrition(foodDesc){
-	return fetch(`http://localhost:8080/api?q=${foodDesc}`).then(function(resp){
+function getPlace(place){
+	return fetch(`http://localhost:8080/api?q=${place}`).then(function(resp){
 		return resp.json();
 	})
 }
@@ -13,7 +13,7 @@ function handleError(error){
 };
 
 module.exports = {
-	getInfo: function(food){
-		return getNutrition(food).catch(handleError);
+	getInfo: function(place){
+		return getPlace(place).catch(handleError);
 	}
 };

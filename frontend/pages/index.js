@@ -9,50 +9,76 @@ class Home extends React.Component {
 
   async handleSearch(evt){
     this.setState({search: evt.target.value});
-    const food = await getInfo(this.state.search);
-    this.setState({food});
+    const place = await getInfo(evt.target.value);
+    this.setState({place});
   }
 
   render() {
     return (
             <div style={{ margin: "auto auto", width: "100%", textAlign: "center", padding: "0 px" }}>
             
-              <div style={{backgroundImage: `url("https://image.freepik.com/free-photo/different-raw-vegetable-blue-wooden-table_23-2147953583.jpg")`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize:"cover",
+              <div style={{backgroundImage: `url("https://cdn.pixabay.com/photo/2017/02/19/15/28/italy-2080072_1280.jpg")`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize:"cover",
                   width: "100%", textAlign: "center", padding: "0 px", height: "250px"}}>
                 <br />
                 <br />
                 <br />
                 <br />
                 <br />
-                <h1>Nutrition Information Search</h1>
+                <h1>Search The World</h1>
 
               </div>
 
-              <h2>Food Search</h2>
+              <h2>Search for a city or country to find out more about it</h2>
 
               <p><input type='text' value={this.state.search} onChange={this.handleSearch.bind(this)}/></p>
 
-              {this.state.food && this.state.search != "" ? <div>
+              {'place' in this.state && this.state.search != "" && this.state.place.type == 'city' ? <div>
                   <br />
 
                   <table>
                     <thead>
                       <tr>
-                        <th>Description</th>
-                        <th>Kcal</th> 
-                        <th>Protein (g)</th>
-                        <th>Fat (g)</th>
-                        <th>Carbohydrates (g)</th>
+                        <th>City</th>
+                        <th>Population</th> 
+                        <th>Country</th>
                       </tr>
                       </thead>
                     <tbody>
-                      {this.state.food.rows.map((item, key) =>
-                        <tr key={item.description}>
-                          <td>{item.description}</td>
-                          <td>{item.kcal}</td>
-                          <td>{item.protein_g}</td>
-                          <td>{(item.fa_sat_g + item.fa_mono_g + item.fa_poly_g).toFixed(2)}</td>
-                          <td>{item.carbohydrate_g}</td>
+                      {this.state.place.results.rows.map((item, key) =>
+                        <tr>
+                          <td>{item.city}</td>
+                          <td>{item.population}</td>
+                          <td>{item.country}</td>
+                        </tr>
+                        )}
+                      
+                    </tbody>
+                  </table>
+
+
+              </div> : null}
+
+              {'place' in this.state && this.state.search != "" && this.state.place.type == 'country' ? <div>
+                  <br />
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>Continent</th> 
+                        <th>Population</th> 
+                        <th>Head of State</th>
+                        <th>Official Language(s)</th>
+                      </tr>
+                      </thead>
+                    <tbody>
+                      {this.state.place.results.rows.map((item, key) =>
+                        <tr>
+                          <td>{item.name}</td>
+                          <td>{item.continent}</td>
+                          <td>{item.population}</td>
+                          <td>{item.headofstate}</td>
+                          <td>{item.language}</td>
                         </tr>
                         )}
                       
@@ -67,7 +93,7 @@ class Home extends React.Component {
 
               <style jsx>{`
                   h1{
-                    color:black; 
+                    color:white; 
                     font-family: "Arial";
                     margin: "auto auto"; 
                     width: 100%;
